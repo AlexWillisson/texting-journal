@@ -16,8 +16,17 @@ import { ChatlogComponent } from './chatlog/chatlog.component';
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import { MessageComponent } from './message/message.component';
 
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 @NgModule({
-  declarations: [AppComponent, ChatlogComponent, MessageDialogComponent, MessageComponent],
+  declarations: [
+    AppComponent,
+    ChatlogComponent,
+    MessageDialogComponent,
+    MessageComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,6 +37,8 @@ import { MessageComponent } from './message/message.component';
     MatDialogModule,
     MatInputModule,
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

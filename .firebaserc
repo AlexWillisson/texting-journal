@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "texting-journal": {
+      "hosting": {
+        "texting-journal": [
+          "texting-journal"
+        ]
+      }
+    }
+  }
+}

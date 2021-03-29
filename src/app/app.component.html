@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-icon>local_fire_department</mat-icon>
-  <span>Kanban Fire</span>
+  <span>Texting Journal</span>
 </mat-toolbar>
 <div class="content-wrapper">
   <button (click)="newMessage()" mat-button>
@@ -9,7 +9,7 @@
 
   <div class="container-wrapper">
     <div class="container">
-      <app-message *ngFor="let message of messageList" [message]="message"></app-message>
+      <app-message *ngFor="let message of messageList | async" [message]="message"></app-message>
     </div>
   </div>
 </div>
