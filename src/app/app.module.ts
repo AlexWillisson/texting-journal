@@ -6,13 +6,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { MessageComponent } from './message/message.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { ChatlogComponent } from './chatlog/chatlog.component';
+
 @NgModule({
-  declarations: [AppComponent, MessageComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatCardModule, MatButtonModule],
+  declarations: [AppComponent, ChatlogComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    NgxDocViewerModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
