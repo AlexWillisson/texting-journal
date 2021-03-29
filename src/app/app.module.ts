@@ -9,20 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { ChatlogComponent } from './chatlog/chatlog.component';
 
 @NgModule({
   declarations: [AppComponent, ChatlogComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatCardModule,
-    MatButtonModule,
-    NgxDocViewerModule,
-  ],
+  imports: [BrowserModule, BrowserAnimationsModule, MatToolbarModule, MatIconModule, MatCardModule, MatButtonModule],
   providers: [],
   bootstrap: [AppComponent],
 })
