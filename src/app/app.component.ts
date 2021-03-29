@@ -7,8 +7,21 @@ import {
   MessageDialogResult,
 } from './message-dialog/message-dialog.component';
 
-import { AngularFirestore } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+
+import { BehaviorSubject } from 'rxjs';
+
+const getObservable = (collection: AngularFirestoreCollection<Message>) => {
+  const subject = new BehaviorSubject<Message[]>([]);
+  collection.valueChanges({ idField: 'id' }).subscribe((val: Message[]) => {
+    subject.next(val);
+  });
+  return subject;
+};
 
 @Component({
   selector: 'app-root',
@@ -17,17 +30,7 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'texting-journal';
-  // messageList: Message[] = [
-  //   {
-  //     contents: 'This is the first message',
-  //   },
-  //   {
-  //     contents: 'The second one',
-  //   },
-  // ];
-  messageList: Observable<Message[]> = this.store
-    .collection<Message>('messageList')
-    .valueChanges({ idField: 'id' });
+  messageList = getObservable(this.store.collection('messageList'));
 
   constructor(private dialog: MatDialog, private store: AngularFirestore) {}
 
