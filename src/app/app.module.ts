@@ -10,7 +10,6 @@ import { MessageComponent } from './message/message.component';
 
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './message-box/message-box.component';
@@ -24,7 +23,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase),
-    EditorModule,
     AngularSimplemdeModule,
     MarkdownModule.forRoot({
       sanitize: SecurityContext.NONE,
