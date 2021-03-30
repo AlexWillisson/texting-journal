@@ -30,7 +30,6 @@ const getObservable = (collection: AngularFirestoreCollection<Message>) => {
 export class AppComponent {
   title = 'texting-journal';
   messageList = getObservable(this.store.collection('messageList'));
-  editorInput: string = '';
 
   constructor(private dialog: MatDialog, private store: AngularFirestore) {}
 
@@ -41,10 +40,10 @@ export class AppComponent {
         message: {},
       },
     });
-    dialogRef
-      .afterClosed()
-      .subscribe((result: MessageDialogResult) =>
-        this.store.collection('messageList').add(result.message)
-      );
+    dialogRef.afterClosed().subscribe((result: MessageDialogResult) => {
+      console.log(result);
+
+      return this.store.collection('messageList').add(result.message);
+    });
   }
 }

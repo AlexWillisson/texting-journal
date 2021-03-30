@@ -10,6 +10,7 @@ import { Message } from '../message/message';
 })
 export class MessageDialogComponent implements OnInit {
   private backupMessage: Partial<Message> = { ...this.data.message };
+  editorInput: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<MessageDialogComponent>,
@@ -21,6 +22,10 @@ export class MessageDialogComponent implements OnInit {
   cancel(): void {
     this.data.message.contents = this.backupMessage.contents;
     this.dialogRef.close(this.data);
+  }
+
+  updateData(): void {
+    this.data.message.contents = this.editorInput;
   }
 }
 
