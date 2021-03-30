@@ -12,4 +12,6 @@
       <app-message *ngFor="let message of messageList | async" [message]="message"></app-message>
     </div>
   </div>
+
+  <app-message-box (newMessage)="addMessage($event)"></app-message-box>
 </div>

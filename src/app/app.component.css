@@ -17,7 +17,7 @@ mat-toolbar > span {
 }
 
 .container {
-  width: 400px;
+  width: 1000px;
   margin: 0 25px 25px 0;
 }
 
@@ -27,7 +27,7 @@ mat-toolbar > span {
   border-radius: 4px;
 }
 
-app-new-task {
+app-new-message {
   margin-bottom: 30px;
 }
 

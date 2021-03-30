@@ -23,6 +23,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { AngularSimplemdeModule } from 'angular-simplemde';
 import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SecurityContext } from '@angular/core';
     ChatlogComponent,
     MessageDialogComponent,
     MessageComponent,
+    MessageBoxComponent,
   ],
   imports: [
     BrowserModule,

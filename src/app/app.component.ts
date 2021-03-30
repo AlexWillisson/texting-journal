@@ -46,4 +46,8 @@ export class AppComponent {
       return this.store.collection('messageList').add(result.message);
     });
   }
+
+  addMessage(newMessage: Message) {
+    this.store.collection('messageList').add(newMessage);
+  }
 }
