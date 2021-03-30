@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Message } from './message/message';
-import {
-  MessageDialogComponent,
-  MessageDialogResult,
-} from './message-dialog/message-dialog.component';
 
 import {
   AngularFirestore,
@@ -31,21 +26,7 @@ export class AppComponent {
   title = 'texting-journal';
   messageList = getObservable(this.store.collection('messageList'));
 
-  constructor(private dialog: MatDialog, private store: AngularFirestore) {}
-
-  newMessage(): void {
-    const dialogRef = this.dialog.open(MessageDialogComponent, {
-      width: '270px',
-      data: {
-        message: {},
-      },
-    });
-    dialogRef.afterClosed().subscribe((result: MessageDialogResult) => {
-      console.log(result);
-
-      return this.store.collection('messageList').add(result.message);
-    });
-  }
+  constructor(private store: AngularFirestore) {}
 
   addMessage(newMessage: Message) {
     this.store.collection('messageList').add(newMessage);

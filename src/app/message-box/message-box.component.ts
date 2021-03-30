@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DefaultActions, ISimpleMdeConfig } from 'angular-simplemde-resettable';
 
 import { Message } from '../message/message';
 
@@ -12,10 +13,15 @@ export class MessageBoxComponent implements OnInit {
 
   editorInput: string = '';
 
+  config: ISimpleMdeConfig = {
+    actions: DefaultActions,
+  };
+
   send(): void {
     this.newMessage.emit({
       contents: this.editorInput,
     });
+    this.editorInput = '';
   }
 
   constructor() {}

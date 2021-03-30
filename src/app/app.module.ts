@@ -20,10 +20,11 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { AngularSimplemdeModule } from 'angular-simplemde';
 import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
+// import { AngularSimplemdeModule } from 'angular-simplemde';
 
 @NgModule({
   declarations: [
