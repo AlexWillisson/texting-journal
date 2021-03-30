@@ -20,7 +20,7 @@ export class MessageBoxComponent implements OnInit {
   editorInput: string = '';
 
   config: ISimpleMdeConfig = {
-    actions: DefaultActions,
+    actions: [],
   };
 
   send(): void {

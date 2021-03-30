@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { Message } from './message/message';
 
@@ -25,10 +25,27 @@ const getObservable = (collection: AngularFirestoreCollection<Message>) => {
 export class AppComponent {
   title = 'texting-journal';
   messageList = getObservable(this.store.collection('messageList'));
+  @ViewChild('messagesContainer')
+  private messagesContainer!: ElementRef;
 
   constructor(private store: AngularFirestore) {}
 
+  ngOnInit(): void {
+    setTimeout(() => this.scrollToBottom(), 500);
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
+
   addMessage(newMessage: Message) {
-    this.store.collection('messageList').add(newMessage);
+    this.store
+      .collection('messageList')
+      .add(newMessage)
+      .then(() => {
+        this.scrollToBottom();
+      });
   }
 }

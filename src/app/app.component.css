@@ -9,6 +9,7 @@ mat-toolbar > span {
 .content-wrapper {
   max-width: 1400px;
   margin: auto;
+  height: 100%;
 }
 
 .container-wrapper {
@@ -19,6 +20,8 @@ mat-toolbar > span {
 .container {
   width: 1000px;
   margin: 0 25px 25px 0;
+  overflow-y: scroll;
+  overflow-anchor: auto;
 }
 
 .list {
@@ -36,4 +39,9 @@ app-new-message {
   padding-top: 10px;
   text-align: center;
   opacity: 0.2;
+}
+
+.message-log {
+  /* height: 20rem; */
+  overflow-y: scroll;
 }

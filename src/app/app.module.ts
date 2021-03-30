@@ -24,7 +24,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
-// import { AngularSimplemdeModule } from 'angular-simplemde';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
     MarkdownModule.forRoot({
       sanitize: SecurityContext.NONE,
     }),
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
