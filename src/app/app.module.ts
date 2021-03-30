@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AngularSimplemdeModule } from 'angular-simplemde';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     EditorModule,
+    AngularSimplemdeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,7 +11,6 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 
 import { BehaviorSubject } from 'rxjs';
 
@@ -31,6 +30,7 @@ const getObservable = (collection: AngularFirestoreCollection<Message>) => {
 export class AppComponent {
   title = 'texting-journal';
   messageList = getObservable(this.store.collection('messageList'));
+  editorInput: string = '';
 
   constructor(private dialog: MatDialog, private store: AngularFirestore) {}
 
