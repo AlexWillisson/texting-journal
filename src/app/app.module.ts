@@ -21,6 +21,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AngularSimplemdeModule } from 'angular-simplemde';
+import { MarkdownModule } from 'ngx-markdown';
+import { SecurityContext } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,9 @@ import { AngularSimplemdeModule } from 'angular-simplemde';
     AngularFirestoreModule,
     EditorModule,
     AngularSimplemdeModule,
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

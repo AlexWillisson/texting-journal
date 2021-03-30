@@ -26,6 +26,7 @@
     "angular-simplemde": "^0.0.4",
     "firebase": "^8.3.1",
     "firebase-admin": "^9.6.0",
+    "ngx-markdown": "^11.1.2",
     "rxjs": "~6.6.0",
     "simplemde": "^1.11.2",
     "tinymce": "^5.7.1",
