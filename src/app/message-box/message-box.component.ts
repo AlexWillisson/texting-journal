@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { DefaultActions, ISimpleMdeConfig } from 'angular-simplemde-resettable';
 
 import { Message } from '../message/message';
@@ -22,6 +28,11 @@ export class MessageBoxComponent implements OnInit {
       contents: this.editorInput,
     });
     this.editorInput = '';
+  }
+
+  @HostListener('document:keydown.enter', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.send();
   }
 
   constructor() {}
