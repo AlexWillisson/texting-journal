@@ -27,11 +27,18 @@ export class AppComponent {
   messageList = getObservable(this.store.collection('messageList'));
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
+  sortedMessages: Message[] = [];
 
   constructor(private store: AngularFirestore) {}
 
   ngOnInit(): void {
     setTimeout(() => this.scrollToBottom(), 500);
+    this.messageList.subscribe((message) => {
+      this.sortedMessages = this.messageList
+        .getValue()
+        .sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+      this.scrollToBottom();
+    });
   }
 
   scrollToBottom(): void {
@@ -41,11 +48,6 @@ export class AppComponent {
   }
 
   addMessage(newMessage: Message) {
-    this.store
-      .collection('messageList')
-      .add(newMessage)
-      .then(() => {
-        this.scrollToBottom();
-      });
+    this.store.collection('messageList').add(newMessage);
   }
 }
