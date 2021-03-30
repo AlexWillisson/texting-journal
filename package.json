@@ -20,7 +20,7 @@
     "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/material": "^11.2.6",
     "@angular/router": "~11.2.7",
-    "angular-simplemde-resettable": "^0.0.12",
+    "angular-simplemde-resettable": "^0.0.14",
     "ngx-markdown": "^11.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
