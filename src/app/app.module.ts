@@ -15,9 +15,11 @@ import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AppRoutingModule } from './app-routing.module';
+import { JournalComponent } from './journal/journal.component';
 
 @NgModule({
-  declarations: [AppComponent, MessageComponent, MessageBoxComponent],
+  declarations: [AppComponent, MessageComponent, MessageBoxComponent, JournalComponent],
   imports: [
     BrowserModule,
     MatCardModule,
@@ -28,6 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
       sanitize: SecurityContext.NONE,
     }),
     FlexLayoutModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
