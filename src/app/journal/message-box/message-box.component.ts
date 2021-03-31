@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { DefaultActions, ISimpleMdeConfig } from 'angular-simplemde-resettable';
 
-import { Message } from './message/message';
+import { Message } from '../message/message';
 
 @Component({
   selector: 'app-message-box',

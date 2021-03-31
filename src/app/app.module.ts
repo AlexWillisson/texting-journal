@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-import { MessageComponent } from './journal/message-box/message/message.component';
+import { MessageComponent } from './journal/message/message.component';
 
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
