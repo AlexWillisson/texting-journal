@@ -7,7 +7,7 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
-const auth = firebaseApp.auth;
+// const auth = firebaseApp.auth;
 
 export interface User {
   uid: string;
@@ -104,7 +104,7 @@ export class NgAuthService {
   }
 
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
+    return this.AuthLogin(new firebaseApp.auth.GoogleAuthProvider());
   }
 
   AuthLogin(provider: firebaseApp.auth.AuthProvider) {
