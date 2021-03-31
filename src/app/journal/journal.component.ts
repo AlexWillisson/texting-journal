@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Message } from './message/message';
 
@@ -20,13 +21,20 @@ const getObservable = (collection: AngularFirestoreCollection<Message>) => {
   styleUrls: ['./journal.component.css'],
 })
 export class JournalComponent implements OnInit {
-  messageCollection = 'encodedMessageList';
-  messageList = getObservable(this.store.collection(this.messageCollection));
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   sortedMessages: Message[] = [];
+  private user: any;
+  private messageCollection: string;
+  private messageList: BehaviorSubject<Message[]>;
 
-  constructor(private store: AngularFirestore) {}
+  constructor(private store: AngularFirestore, private router: Router) {
+    this.user = this.getUser();
+    this.messageCollection = 'messages-' + this.user.uid;
+    this.messageList = getObservable(
+      this.store.collection(this.messageCollection)
+    );
+  }
 
   ngOnInit(): void {
     setTimeout(() => this.scrollToBottom(), 500);
@@ -60,6 +68,24 @@ export class JournalComponent implements OnInit {
     };
 
     return decodedMessage;
+  }
+
+  getUser() {
+    const userData = localStorage.getItem('user');
+
+    if (userData) {
+      const user = JSON.parse(userData);
+
+      if (user.uid) {
+        return user;
+      } else {
+        this.router.navigate(['sign-in']);
+        return '';
+      }
+    } else {
+      this.router.navigate(['sign-in']);
+      return '';
+    }
   }
 
   addMessage(newMessage: Message) {
