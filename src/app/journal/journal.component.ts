@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { Message } from '../message/message';
+import { Message } from './message-box/message/message';
 
 const getObservable = (collection: AngularFirestoreCollection<Message>) => {
   const subject = new BehaviorSubject<Message[]>([]);
