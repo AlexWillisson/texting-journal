@@ -20,7 +20,8 @@ const getObservable = (collection: AngularFirestoreCollection<Message>) => {
   styleUrls: ['./journal.component.css'],
 })
 export class JournalComponent implements OnInit {
-  messageList = getObservable(this.store.collection('messageList'));
+  messageCollection = 'encodedMessageList';
+  messageList = getObservable(this.store.collection(this.messageCollection));
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   sortedMessages: Message[] = [];
@@ -32,7 +33,16 @@ export class JournalComponent implements OnInit {
     this.messageList.subscribe((message) => {
       this.sortedMessages = this.messageList
         .getValue()
-        .sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+        .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+        .map((message: Message) => {
+          const decodedMessage: Message = {
+            contents: atob(message.contents),
+            datetime: message.datetime,
+          };
+
+          return decodedMessage;
+        });
+
       this.scrollToBottom();
     });
   }
@@ -43,7 +53,21 @@ export class JournalComponent implements OnInit {
     } catch (err) {}
   }
 
+  decodeMessage(message: Message): Message {
+    const decodedMessage: Message = {
+      contents: atob(message.contents),
+      datetime: message.datetime,
+    };
+
+    return decodedMessage;
+  }
+
   addMessage(newMessage: Message) {
-    this.store.collection('messageList').add(newMessage);
+    const encodedMessage: Message = {
+      contents: btoa(newMessage.contents),
+      datetime: newMessage.datetime,
+    };
+
+    this.store.collection(this.messageCollection).add(encodedMessage);
   }
 }
