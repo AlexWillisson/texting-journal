@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 import { MessageComponent } from './journal/message/message.component';
 import { environment } from 'src/environments/environment';
@@ -15,6 +19,7 @@ import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './journal/message-box/message-box.component';
 import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { JournalComponent } from './journal/journal.component';
@@ -54,6 +59,11 @@ import { JournalExporterComponent } from './journal-exporter/journal-exporter.co
     FlexLayoutModule,
     AppRoutingModule,
     FileSaverModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    BrowserAnimationsModule,
   ],
   providers: [NgAuthService],
   bootstrap: [AppComponent],

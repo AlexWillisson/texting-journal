@@ -4,6 +4,7 @@ import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';
 import { Message } from '../journal/message/message';
 import firebase from 'firebase';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-journal-exporter',
