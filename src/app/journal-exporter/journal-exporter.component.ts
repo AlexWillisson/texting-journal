@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';
 import { Message } from '../journal/message/message';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-journal-exporter',
@@ -38,32 +39,33 @@ export class JournalExporterComponent implements OnInit {
       .get()
       .subscribe({
         next: (snapshot) => {
-          this.fileSaverService.save(
-            new Blob([
-              snapshot.docs
-                .map((queryDocumentSnapshot) => queryDocumentSnapshot.data())
-                .map((message: any) => {
-                  const date = new Date(0);
-                  date.setUTCSeconds(message.datetime.seconds);
-
-                  return <Message>{
-                    contents: atob(message.contents),
-                    datetime: date,
-                  };
-                })
-                .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
-                .map(this.markdownRenderMessage)
-                .reduce(
-                  (collectedMessages, message) =>
-                    (collectedMessages = collectedMessages.concat(
-                      '\n---\n',
-                      message
-                    ))
-                ),
-            ]),
-            'full-journal.md'
-          );
+          this.downloadQuerySnapshot(snapshot);
         },
       });
+  }
+
+  downloadQuerySnapshot(snapshot: firebase.firestore.QuerySnapshot<unknown>) {
+    this.fileSaverService.save(
+      new Blob([
+        snapshot.docs
+          .map((queryDocumentSnapshot) => queryDocumentSnapshot.data())
+          .map((message: any) => {
+            const date = new Date(0);
+            date.setUTCSeconds(message.datetime.seconds);
+
+            return <Message>{
+              contents: atob(message.contents),
+              datetime: date,
+            };
+          })
+          .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+          .map(this.markdownRenderMessage)
+          .reduce(
+            (collectedMessages, message) =>
+              (collectedMessages = collectedMessages.concat('\n---\n', message))
+          ),
+      ]),
+      'full-journal.md'
+    );
   }
 }
