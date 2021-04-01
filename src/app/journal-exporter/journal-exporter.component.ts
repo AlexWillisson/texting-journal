@@ -20,7 +20,9 @@ export class JournalExporterComponent implements OnInit {
     private store: AngularFirestore
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.messageCollection = 'messages-' + this.ngAuthService.getUser.uid;
+  }
 
   markdownRenderMessage(message: Message): string {
     return (
@@ -31,20 +33,34 @@ export class JournalExporterComponent implements OnInit {
     );
   }
 
-  fetchFullJournal() {
-    this.messageCollection = 'messages-' + this.ngAuthService.userState.uid;
+  fetchTodayJournal() {
+    this.store
+      .collection(this.messageCollection, (ref) =>
+        ref.where('datetime', '>', new Date(new Date().toDateString()))
+      )
+      .get()
+      .subscribe({
+        next: (snapshot) => {
+          this.downloadQuerySnapshot(snapshot, 'today-journal.md');
+        },
+      });
+  }
 
+  fetchFullJournal() {
     this.store
       .collection(this.messageCollection)
       .get()
       .subscribe({
         next: (snapshot) => {
-          this.downloadQuerySnapshot(snapshot);
+          this.downloadQuerySnapshot(snapshot, 'full-journal.md');
         },
       });
   }
 
-  downloadQuerySnapshot(snapshot: firebase.firestore.QuerySnapshot<unknown>) {
+  downloadQuerySnapshot(
+    snapshot: firebase.firestore.QuerySnapshot<unknown>,
+    filename: string
+  ) {
     this.fileSaverService.save(
       new Blob([
         snapshot.docs
@@ -65,7 +81,7 @@ export class JournalExporterComponent implements OnInit {
               (collectedMessages = collectedMessages.concat('\n---\n', message))
           ),
       ]),
-      'full-journal.md'
+      filename
     );
   }
 }
