@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';
@@ -16,6 +16,8 @@ export class JournalExporterComponent implements OnInit {
   singleDayDate: string = '';
   startDate: string = '';
   endDate: string = '';
+  startWeekDate: string = '';
+  endWeekDate: string = '';
 
   constructor(
     public ngAuthService: NgAuthService,
@@ -25,6 +27,14 @@ export class JournalExporterComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageCollection = 'messages-' + this.ngAuthService.getUser.uid;
+  }
+
+  updateStartWeek(startWeek: string): void {
+    this.startWeekDate = startWeek;
+  }
+
+  updateEndWeek(endWeek: string): void {
+    this.endWeekDate = endWeek;
   }
 
   markdownRenderMessage(message: Message): string {
@@ -56,20 +66,37 @@ export class JournalExporterComponent implements OnInit {
       });
   }
 
+  fetchWeekJournal() {
+    const nextDay = new Date(this.endWeekDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    this.generateRangeJournal(
+      new Date(this.startWeekDate),
+      nextDay,
+      'journal-week.md'
+    );
+  }
+
   fetchRangeJournal() {
     const nextDay = new Date(this.endDate);
     nextDay.setDate(nextDay.getDate() + 1);
 
+    this.generateRangeJournal(
+      new Date(this.startDate),
+      nextDay,
+      'journal-range.md'
+    );
+  }
+
+  generateRangeJournal(startDate: Date, endDate: Date, filename: string) {
     this.store
       .collection(this.messageCollection, (ref) =>
-        ref
-          .where('datetime', '>=', new Date(this.startDate))
-          .where('datetime', '<', new Date(nextDay))
+        ref.where('datetime', '>=', startDate).where('datetime', '<', endDate)
       )
       .get()
       .subscribe({
         next: (snapshot) => {
-          this.downloadQuerySnapshot(snapshot, 'journal-range.md');
+          this.downloadQuerySnapshot(snapshot, filename);
         },
       });
   }

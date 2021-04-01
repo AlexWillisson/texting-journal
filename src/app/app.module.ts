@@ -33,6 +33,7 @@ import { NgAuthService } from './auth/ng-auth.service';
 
 import { FileSaverModule } from 'ngx-filesaver';
 import { JournalExporterComponent } from './journal-exporter/journal-exporter.component';
+import { WeekPickerComponent } from './journal-exporter/week-picker/week-picker.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { JournalExporterComponent } from './journal-exporter/journal-exporter.co
     VerifyEmailComponent,
     DashboardComponent,
     JournalExporterComponent,
+    WeekPickerComponent,
   ],
   imports: [
     BrowserModule,

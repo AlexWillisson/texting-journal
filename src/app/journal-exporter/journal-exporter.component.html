@@ -23,4 +23,6 @@
     <mat-date-range-picker #rangePicker></mat-date-range-picker>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="fetchRangeJournal()">Download Journal for range</button>
+  <app-week-picker (startWeek)="updateStartWeek($event)" (endWeek)="updateEndWeek($event)"></app-week-picker>
+  <button mat-raised-button color="primary" (click)="fetchWeekJournal()">Download Journal for week</button>
 </div>

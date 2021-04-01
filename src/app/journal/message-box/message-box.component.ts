@@ -5,7 +5,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { DefaultActions, ISimpleMdeConfig } from 'angular-simplemde-resettable';
+import { ISimpleMdeConfig } from 'angular-simplemde-resettable';
 
 import { Message } from '../message/message';
 
