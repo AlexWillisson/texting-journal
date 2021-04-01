@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { MessageComponent } from './journal/message/message.component';
-
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { MarkdownModule } from 'ngx-markdown';
@@ -15,6 +15,7 @@ import { SecurityContext } from '@angular/core';
 import { MessageBoxComponent } from './journal/message-box/message-box.component';
 import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { AppRoutingModule } from './app-routing.module';
 import { JournalComponent } from './journal/journal.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,6 +24,9 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 import { NgAuthService } from './auth/ng-auth.service';
+
+import { FileSaverModule } from 'ngx-filesaver';
+import { JournalExporterComponent } from './journal-exporter/journal-exporter.component';
 
 @NgModule({
   declarations: [
@@ -35,11 +39,13 @@ import { NgAuthService } from './auth/ng-auth.service';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     DashboardComponent,
+    JournalExporterComponent,
   ],
   imports: [
     BrowserModule,
     MatCardModule,
     MatButtonModule,
+    MatDividerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularSimplemdeModule,
     MarkdownModule.forRoot({
@@ -47,6 +53,7 @@ import { NgAuthService } from './auth/ng-auth.service';
     }),
     FlexLayoutModule,
     AppRoutingModule,
+    FileSaverModule,
   ],
   providers: [NgAuthService],
   bootstrap: [AppComponent],

@@ -93,6 +93,10 @@ export class NgAuthService {
       });
   }
 
+  get getUser() {
+    return JSON.parse(localStorage.getItem('user') || 'null');
+  }
+
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || 'null');
     return user !== null && user.emailVerified !== false ? true : false;

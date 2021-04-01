@@ -2,18 +2,17 @@
 
   <div class="row" *ngIf="ngAuthService.userState as user">
     <div class="media">
-      <img class="align-self-start mr-5 img-thumbnail rounded-circle"
-        src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user.displayName}}">
+      <div>
+        <img class="align-self-start mr-5 img-thumbnail rounded-circle"
+          src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user.displayName}}">
+      </div>
+      <button mat-raised-button color="primary" (click)="ngAuthService.SignOut()">Sign Out</button>
       <div class="media-body">
-        <h2>Hi: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h2>
-        <p>User ID: <strong>{{user.uid}}</strong></p>
+        <h2><strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h2>
         <p>Email: <strong>{{user.email}}</strong></p>
       </div>
     </div>
   </div>
-
-  <a class="btn btn-block btn-primary" (click)="ngAuthService.SignOut()">
-    Sign Out
-  </a>
-
+  <mat-divider></mat-divider>
+  <app-journal-exporter></app-journal-exporter>
 </div>

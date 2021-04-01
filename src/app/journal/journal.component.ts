@@ -36,7 +36,8 @@ export class JournalComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => this.scrollToBottom(), 500);
-    this.messageCollection = 'messages-' + this.ngAuthService.userState.uid;
+    const user = this.ngAuthService.getUser;
+    this.messageCollection = 'messages-' + user.uid;
     this.messageList = getObservable(
       this.store.collection(this.messageCollection)
     );
@@ -64,20 +65,16 @@ export class JournalComponent implements OnInit {
   }
 
   decodeMessage(message: Message): Message {
-    const decodedMessage: Message = {
+    return <Message>{
       contents: atob(message.contents),
       datetime: message.datetime,
     };
-
-    return decodedMessage;
   }
 
   addMessage(newMessage: Message) {
-    const encodedMessage: Message = {
+    this.store.collection(this.messageCollection).add(<Message>{
       contents: btoa(newMessage.contents),
       datetime: newMessage.datetime,
-    };
-
-    this.store.collection(this.messageCollection).add(encodedMessage);
+    });
   }
 }
