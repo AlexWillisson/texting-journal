@@ -45,6 +45,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "better-npm-audit": "^1.8.1",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "2.22.1",
