@@ -1,10 +1,4 @@
-import {
-  Component,
-  Injectable,
-  Input,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';

@@ -18,7 +18,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Weekly therapy time</mat-label>
     <input matInput placeholder="Select time" aria-label="12hr format" [ngxTimepicker]="therapyTimePicker" readonly
-      [(ngModel)]="therapyTime">
+      [(ngModel)]="therapyTime" (ngModelChange)="updateTherapyTime()">
     <ngx-material-timepicker #therapyTimePicker></ngx-material-timepicker>
   </mat-form-field>
 
