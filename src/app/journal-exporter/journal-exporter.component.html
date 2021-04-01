@@ -12,3 +12,15 @@
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="fetchDayJournal()">Download One Day Journal</button>
 </div>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
+      <input matEndDate placeholder="End date" [(ngModel)]="endDate">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker></mat-date-range-picker>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="fetchRangeJournal()">Download Journal for range</button>
+</div>

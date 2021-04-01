@@ -14,6 +14,8 @@ export class JournalExporterComponent implements OnInit {
   messageCollection!: string;
   messageList: Message[] = [];
   singleDayDate: string = '';
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(
     public ngAuthService: NgAuthService,
@@ -50,6 +52,24 @@ export class JournalExporterComponent implements OnInit {
             snapshot,
             'journal-' + targetDay.toISOString().split('T')[0] + '.md'
           );
+        },
+      });
+  }
+
+  fetchRangeJournal() {
+    const nextDay = new Date(this.endDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    this.store
+      .collection(this.messageCollection, (ref) =>
+        ref
+          .where('datetime', '>=', new Date(this.startDate))
+          .where('datetime', '<', new Date(nextDay))
+      )
+      .get()
+      .subscribe({
+        next: (snapshot) => {
+          this.downloadQuerySnapshot(snapshot, 'journal-range.md');
         },
       });
   }
