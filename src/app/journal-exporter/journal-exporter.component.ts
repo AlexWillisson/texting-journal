@@ -5,6 +5,8 @@ import { FileSaverService } from 'ngx-filesaver';
 import { Message } from '../journal/message/message';
 import firebase from 'firebase';
 import { Time } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorPopupComponent } from '../error-popup/error-popup.component';
 
 @Component({
   selector: 'app-journal-exporter',
@@ -25,7 +27,8 @@ export class JournalExporterComponent implements OnInit {
   constructor(
     public ngAuthService: NgAuthService,
     private fileSaverService: FileSaverService,
-    private store: AngularFirestore
+    private store: AngularFirestore,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -149,6 +152,11 @@ export class JournalExporterComponent implements OnInit {
     snapshot: firebase.firestore.QuerySnapshot<unknown>,
     filename: string
   ) {
+    if (snapshot.docs.length == 0) {
+      this.showUserError(new Error('No journal entries for time selected'));
+      return;
+    }
+
     this.fileSaverService.save(
       new Blob([
         snapshot.docs
@@ -172,4 +180,52 @@ export class JournalExporterComponent implements OnInit {
       filename
     );
   }
+
+  showUserError(error: Error) {
+    this.dialog.open(ErrorPopupComponent, { data: { error: error } });
+  }
 }
+
+// /**
+//  * @title Dialog Overview
+//  */
+// @Component({
+//   selector: 'dialog-overview-example',
+//   templateUrl: 'dialog-overview-example.html',
+// })
+// export class DialogOverviewExample {
+
+//   animal: string;
+//   name: string;
+
+//   constructor(public dialog: MatDialog) {}
+
+//   openDialog(): void {
+//     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+//       width: '250px',
+//       data: {name: this.name, animal: this.animal}
+//     });
+
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('The dialog was closed');
+//       this.animal = result;
+//     });
+//   }
+
+// }
+
+// @Component({
+//   selector: 'dialog-overview-example-dialog',
+//   templateUrl: 'dialog-overview-example-dialog.html',
+// })
+// export class DialogOverviewExampleDialog {
+
+//   constructor(
+//     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+//     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+
+// }

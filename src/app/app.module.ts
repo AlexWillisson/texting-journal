@@ -35,6 +35,7 @@ import { NgAuthService } from './auth/ng-auth.service';
 import { FileSaverModule } from 'ngx-filesaver';
 import { JournalExporterComponent } from './journal-exporter/journal-exporter.component';
 import { WeekPickerComponent } from './journal-exporter/week-picker/week-picker.component';
+import { ErrorPopupComponent } from './error-popup/error-popup.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { WeekPickerComponent } from './journal-exporter/week-picker/week-picker.
     DashboardComponent,
     JournalExporterComponent,
     WeekPickerComponent,
+    ErrorPopupComponent,
   ],
   imports: [
     BrowserModule,
