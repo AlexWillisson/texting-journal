@@ -17,10 +17,15 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.store
-    //   .collection('user-settings')
-    //   .doc(this.ngAuthService.getUser.uid)
-    //   .get();
+    this.store
+      .collection('user-settings')
+      .doc(this.ngAuthService.getUser.uid)
+      .get()
+      .subscribe({
+        next: (snapshot) => {
+          this.therapyTime = snapshot.get('therapyTime');
+        },
+      });
   }
 
   updateTherapyTime() {
