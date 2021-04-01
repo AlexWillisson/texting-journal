@@ -34,6 +34,7 @@ import { NgAuthService } from './auth/ng-auth.service';
     SignUpComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { NgAuthService } from '../auth/ng-auth.service';
 import { Message } from './message/message';
 
 const getObservable = (collection: AngularFirestoreCollection<Message>) => {
@@ -24,20 +25,21 @@ export class JournalComponent implements OnInit {
   @ViewChild('messagesContainer')
   private messagesContainer!: ElementRef;
   sortedMessages: Message[] = [];
-  private user: any;
-  private messageCollection: string;
-  private messageList: BehaviorSubject<Message[]>;
+  private messageCollection!: string;
+  private messageList!: BehaviorSubject<Message[]>;
 
-  constructor(private store: AngularFirestore, private router: Router) {
-    this.user = this.getUser();
-    this.messageCollection = 'messages-' + this.user.uid;
-    this.messageList = getObservable(
-      this.store.collection(this.messageCollection)
-    );
-  }
+  constructor(
+    private store: AngularFirestore,
+    private router: Router,
+    private ngAuthService: NgAuthService
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => this.scrollToBottom(), 500);
+    this.messageCollection = 'messages-' + this.ngAuthService.userState.uid;
+    this.messageList = getObservable(
+      this.store.collection(this.messageCollection)
+    );
     this.messageList.subscribe((message) => {
       this.sortedMessages = this.messageList
         .getValue()
@@ -68,24 +70,6 @@ export class JournalComponent implements OnInit {
     };
 
     return decodedMessage;
-  }
-
-  getUser() {
-    const userData = localStorage.getItem('user');
-
-    if (userData) {
-      const user = JSON.parse(userData);
-
-      if (user.uid) {
-        return user;
-      } else {
-        this.router.navigate(['sign-in']);
-        return '';
-      }
-    } else {
-      this.router.navigate(['sign-in']);
-      return '';
-    }
   }
 
   addMessage(newMessage: Message) {

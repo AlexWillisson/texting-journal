@@ -22,6 +22,7 @@ export interface User {
 })
 export class NgAuthService {
   userState: any;
+  private freshlyLoggedIn: boolean = false;
 
   constructor(
     public afs: AngularFirestore,
@@ -33,6 +34,10 @@ export class NgAuthService {
       if (user) {
         this.userState = user;
         localStorage.setItem('user', JSON.stringify(this.userState));
+        if (this.freshlyLoggedIn) {
+          this.freshlyLoggedIn = false;
+          this.router.navigate(['dashboard']);
+        }
       } else {
         localStorage.removeItem('user');
       }
@@ -43,14 +48,8 @@ export class NgAuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        });
-        if (result.user) {
-          this.SetUserData(result.user);
-        } else {
-          Promise.reject(new Error('signin failed'));
-        }
+        this.SetUserData(result.user);
+        this.freshlyLoggedIn = true;
       })
       .catch((error) => {
         window.alert(error.message);
@@ -62,11 +61,7 @@ export class NgAuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.SendVerificationMail();
-        if (result.user) {
-          this.SetUserData(result.user);
-        } else {
-          Promise.reject(new Error('signup failed'));
-        }
+        this.SetUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -111,23 +106,19 @@ export class NgAuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
-        });
-        if (result.user) {
-          this.SetUserData(result.user);
-        } else {
-          Promise.reject(
-            new Error('external authentication provider login failed')
-          );
-        }
+        this.SetUserData(result.user);
+        this.freshlyLoggedIn = true;
       })
       .catch((error) => {
         window.alert(error);
       });
   }
 
-  SetUserData(user: firebaseApp.User) {
+  SetUserData(user: firebaseApp.User | null) {
+    if (user === null) {
+      return;
+    }
+
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
