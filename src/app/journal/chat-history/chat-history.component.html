@@ -1,0 +1,5 @@
+<!-- <app-message *ngFor="let message of messages" [message]="message"></app-message> -->
+<div *ngFor="let bunch of bunchedMessages">
+  {{ bunch.timestamp | date:"short"}}
+  <app-message *ngFor="let message of bunch.messages" [message]="message"></app-message>
+</div>

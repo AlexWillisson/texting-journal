@@ -1,7 +1,7 @@
 <div fxLayout="column" class="content-wrapper">
   <div class="container-wrapper" fxFlex=70>
     <div #messagesContainer class="container">
-      <app-message *ngFor="let message of sortedMessages" [message]="message"></app-message>
+      <app-chat-history [messages]="sortedMessages"></app-chat-history>
     </div>
   </div>
   <div fxFlex=30>

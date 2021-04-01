@@ -67,7 +67,7 @@ export class JournalExporterComponent implements OnInit {
   markdownRenderMessage(message: Message): string {
     return (
       '###### _' +
-      message.datetime.toLocaleString('en-US') +
+      message.timestamp.toLocaleString('en-US') +
       '_\n\n' +
       message.contents
     );
@@ -167,10 +167,10 @@ export class JournalExporterComponent implements OnInit {
 
             return <Message>{
               contents: atob(message.contents),
-              datetime: date,
+              timestamp: date,
             };
           })
-          .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+          .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
           .map(this.markdownRenderMessage)
           .reduce(
             (collectedMessages, message) =>

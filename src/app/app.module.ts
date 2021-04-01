@@ -36,6 +36,7 @@ import { FileSaverModule } from 'ngx-filesaver';
 import { JournalExporterComponent } from './journal-exporter/journal-exporter.component';
 import { WeekPickerComponent } from './journal-exporter/week-picker/week-picker.component';
 import { ErrorPopupComponent } from './error-popup/error-popup.component';
+import { ChatHistoryComponent } from './journal/chat-history/chat-history.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ErrorPopupComponent } from './error-popup/error-popup.component';
     JournalExporterComponent,
     WeekPickerComponent,
     ErrorPopupComponent,
+    ChatHistoryComponent,
   ],
   imports: [
     BrowserModule,

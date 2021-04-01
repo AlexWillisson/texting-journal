@@ -26,7 +26,7 @@ export class MessageBoxComponent implements OnInit {
   send(): void {
     this.newMessage.emit({
       contents: this.editorInput,
-      datetime: new Date(),
+      timestamp: new Date(),
     });
     this.editorInput = '';
   }
