@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';
 import { Message } from '../journal/message/message';
 import firebase from 'firebase';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-journal-exporter',
@@ -14,6 +13,7 @@ import { FormControl } from '@angular/forms';
 export class JournalExporterComponent implements OnInit {
   messageCollection!: string;
   messageList: Message[] = [];
+  singleDayDate: string = '';
 
   constructor(
     public ngAuthService: NgAuthService,
@@ -34,15 +34,22 @@ export class JournalExporterComponent implements OnInit {
     );
   }
 
-  fetchTodayJournal() {
+  fetchDayJournal() {
+    const targetDay = new Date(this.singleDayDate);
+    const nextDay = new Date(this.singleDayDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
     this.store
       .collection(this.messageCollection, (ref) =>
-        ref.where('datetime', '>', new Date(new Date().toDateString()))
+        ref.where('datetime', '>=', targetDay).where('datetime', '<', nextDay)
       )
       .get()
       .subscribe({
         next: (snapshot) => {
-          this.downloadQuerySnapshot(snapshot, 'today-journal.md');
+          this.downloadQuerySnapshot(
+            snapshot,
+            'journal-' + targetDay.toISOString().split('T')[0] + '.md'
+          );
         },
       });
   }

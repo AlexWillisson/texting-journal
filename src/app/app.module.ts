@@ -20,6 +20,7 @@ import { MessageBoxComponent } from './journal/message-box/message-box.component
 import { AngularSimplemdeModule } from 'angular-simplemde-resettable';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { JournalComponent } from './journal/journal.component';
@@ -64,6 +65,7 @@ import { JournalExporterComponent } from './journal-exporter/journal-exporter.co
     MatNativeDateModule,
     MatInputModule,
     BrowserAnimationsModule,
+    FormsModule,
   ],
   providers: [NgAuthService],
   bootstrap: [AppComponent],
