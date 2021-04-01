@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { MessageComponent } from './journal/message/message.component';
 import { environment } from 'src/environments/environment';
@@ -68,6 +69,7 @@ import { WeekPickerComponent } from './journal-exporter/week-picker/week-picker.
     MatInputModule,
     BrowserAnimationsModule,
     FormsModule,
+    NgxMaterialTimepickerModule,
   ],
   providers: [NgAuthService],
   bootstrap: [AppComponent],
