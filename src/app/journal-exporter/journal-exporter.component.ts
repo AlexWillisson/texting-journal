@@ -1,9 +1,16 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  Input,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NgAuthService } from '../auth/ng-auth.service';
 import { FileSaverService } from 'ngx-filesaver';
 import { Message } from '../journal/message/message';
 import firebase from 'firebase';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-journal-exporter',
@@ -11,6 +18,7 @@ import firebase from 'firebase';
   styleUrls: ['./journal-exporter.component.css'],
 })
 export class JournalExporterComponent implements OnInit {
+  @Input() therapyTimeInput!: string;
   messageCollection!: string;
   messageList: Message[] = [];
   singleDayDate: string = '';
@@ -18,6 +26,7 @@ export class JournalExporterComponent implements OnInit {
   endDate: string = '';
   startWeekDate: string = '';
   endWeekDate: string = '';
+  therapyTime: Time | undefined;
 
   constructor(
     public ngAuthService: NgAuthService,
@@ -27,6 +36,27 @@ export class JournalExporterComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageCollection = 'messages-' + this.ngAuthService.getUser.uid;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (changes.hasOwnProperty(propName)) {
+        switch (propName) {
+          case 'therapyTimeInput': {
+            if (this.therapyTimeInput) {
+              const timeObject = new Date(
+                '1970-01-01 ' + this.therapyTimeInput
+              );
+
+              this.therapyTime = {
+                hours: timeObject.getHours(),
+                minutes: timeObject.getMinutes(),
+              };
+            }
+          }
+        }
+      }
+    }
   }
 
   updateStartWeek(startWeek: string): void {
@@ -67,14 +97,23 @@ export class JournalExporterComponent implements OnInit {
   }
 
   fetchWeekJournal() {
-    const nextDay = new Date(this.endWeekDate);
-    nextDay.setDate(nextDay.getDate() + 1);
+    const startDay = new Date(this.startWeekDate);
+    const endDay = new Date(this.endWeekDate);
 
-    this.generateRangeJournal(
-      new Date(this.startWeekDate),
-      nextDay,
-      'journal-week.md'
-    );
+    if (this.therapyTime) {
+      startDay.setHours(this.therapyTime.hours);
+      startDay.setMinutes(this.therapyTime.minutes);
+      endDay.setHours(this.therapyTime.hours);
+      endDay.setMinutes(this.therapyTime.minutes);
+    } else {
+      startDay.setHours(0);
+      startDay.setMinutes(0);
+      endDay.setHours(23);
+      endDay.setMinutes(59);
+      endDay.setSeconds(59);
+    }
+
+    this.generateRangeJournal(startDay, endDay, 'journal-week.md');
   }
 
   fetchRangeJournal() {

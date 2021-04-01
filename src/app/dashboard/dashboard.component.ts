@@ -8,6 +8,7 @@ import { NgAuthService } from '../auth/ng-auth.service';
 })
 export class DashboardComponent implements OnInit {
   messageCollection!: string;
+  therapyTime: string = '';
 
   constructor(public ngAuthService: NgAuthService) {}
 

@@ -7,8 +7,6 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
-// const auth = firebaseApp.auth;
-
 export interface User {
   uid: string;
   email?: string | null;
