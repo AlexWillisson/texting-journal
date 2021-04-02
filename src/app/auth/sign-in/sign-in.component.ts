@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgAuthService } from '../ng-auth.service';
 
 @Component({
@@ -7,7 +8,11 @@ import { NgAuthService } from '../ng-auth.service';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  constructor(public ngAuthService: NgAuthService) {}
+  constructor(public ngAuthService: NgAuthService, public router: Router) {
+    if (ngAuthService.isLoggedIn) {
+      router.navigate(['dashboard']);
+    }
+  }
 
   ngOnInit() {}
 }
