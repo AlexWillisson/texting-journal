@@ -9,10 +9,13 @@ import { NgAuthService } from '../ng-auth.service';
 })
 export class SignInComponent implements OnInit {
   constructor(public ngAuthService: NgAuthService, public router: Router) {
-    if (ngAuthService.isLoggedIn) {
-      router.navigate(['dashboard']);
-    }
+    this.ngAuthService = ngAuthService;
+    this.router = router;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.ngAuthService.isLoggedIn) {
+      this.router.navigate(['dashboard']);
+    }
+  }
 }
