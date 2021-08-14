@@ -80,7 +80,7 @@ export class JournalExporterComponent implements OnInit {
 
     this.store
       .collection(this.messageCollection, (ref) =>
-        ref.where('datetime', '>=', targetDay).where('datetime', '<', nextDay)
+        ref.where('timestamp', '>=', targetDay).where('timestamp', '<', nextDay)
       )
       .get()
       .subscribe({
@@ -127,7 +127,7 @@ export class JournalExporterComponent implements OnInit {
   generateRangeJournal(startDate: Date, endDate: Date, filename: string) {
     this.store
       .collection(this.messageCollection, (ref) =>
-        ref.where('datetime', '>=', startDate).where('datetime', '<', endDate)
+        ref.where('timestamp', '>=', startDate).where('timestamp', '<', endDate)
       )
       .get()
       .subscribe({
@@ -163,7 +163,7 @@ export class JournalExporterComponent implements OnInit {
           .map((queryDocumentSnapshot) => queryDocumentSnapshot.data())
           .map((message: any) => {
             const date = new Date(0);
-            date.setUTCSeconds(message.datetime.seconds);
+            date.setUTCSeconds(message.timestamp.seconds);
 
             return <Message>{
               contents: atob(message.contents),
