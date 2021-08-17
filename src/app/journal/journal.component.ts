@@ -39,7 +39,7 @@ export class JournalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => this.scrollToBottom(), 500);
+    setTimeout(() => this.scrollToBottom(), 1000);
     const user = this.ngAuthService.getUser;
     this.messageCollection = 'messages-' + user.uid;
     this.firebaseMessageList = getObservable(
